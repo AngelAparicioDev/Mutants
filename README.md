@@ -60,10 +60,10 @@ EJEMPLO DE BODY PARA CONSUMO servicio /api/mutant:
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 CONFIGURACIÓN PARA EJECUTAR EL PROYECTO LOCALMENTE:
 
-clonar el proyecto en la maquina local
-ejecutar el comando: gradle clean build este es el encargado de crear el ejecutable .jar dentro de la carpeta build/libs/
-ejecutar en la raiz del proyecto el comando: java -jar build/libs/mutantes-0.0.1-SNAPSHOT.jar
-tendremos el proyecto corriendo localmente y podremos acceder a el por medio de la base localhost:5000/api/...
+-clonar el proyecto en la maquina local
+-ejecutar el comando: gradle clean build este es el encargado de crear el ejecutable .jar dentro de la carpeta build/libs/
+-ejecutar en la raiz del proyecto el comando: java -jar build/libs/mutantes-0.0.1-SNAPSHOT.jar
+-tendremos el proyecto corriendo localmente y podremos acceder a el por medio de la base localhost:5000/api/...
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 CONSUMO DE LOS SERVICIOS 
@@ -97,6 +97,18 @@ Body consumo : { "dna":["ATGCGA","CAGTAC","TTATGT","AGATGG","AATGTA","TCACT"]}
 RESPUESTA 400
 
 ![WhatsApp Image 2022-09-04 at 1 19 14 PM](https://user-images.githubusercontent.com/51482164/188327892-8c3aab21-318b-4fe6-8fee-2944e5d2e116.jpeg)
+
+* Servicio para recoger las estadisticas de los analisis realizados y guardados en la bd 
+http://analysismutant-env.eba-4przmm2n.us-east-1.elasticbeanstalk.com/api/stats  [GET]
+
+Body response : {
+    "count_mutant_dna": 20,
+    "count_human_dna": 31,
+    "ratio": 0.6451612903225806
+}
+
+![WhatsApp Image 2022-09-04 at 1 29 25 PM](https://user-images.githubusercontent.com/51482164/188328280-b3e03dd9-2413-44a8-a21f-22badc7dda46.jpeg)
+
 
 Para el consumo de estos servicios existe una carpeta como se describio en la estructura del proyecto en la cual esta la collection de postman para probar
 
