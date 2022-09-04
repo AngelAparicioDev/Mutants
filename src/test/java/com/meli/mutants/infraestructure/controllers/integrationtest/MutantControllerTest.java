@@ -46,7 +46,7 @@ public class MutantControllerTest {
 
 	@Test
 	public void getStatTest() throws Exception {
-		this.mockMvc.perform(get("/stats")).andExpect(status().isOk());
+		this.mockMvc.perform(get("/api/stats")).andExpect(status().isOk());
 	}
 
 	@Test
@@ -54,7 +54,7 @@ public class MutantControllerTest {
 		DnaSequence dna = new DnaSequence();
 		dna.setDna(DNA_MUTANT.split(","));
 
-		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/mutant").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(dna)))
 				.andExpect(status().isOk()).andExpect(content().string("Congratulations is a mutant !!"));
 	}
@@ -64,7 +64,7 @@ public class MutantControllerTest {
 		DnaSequence dna = new DnaSequence();
 		dna.setDna(DNA_HUMAN.split(","));
 
-		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/mutant").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(dna)))
 				.andExpect(status().isForbidden()).andExpect(content().string("Dna validated is not mutant !!"));
 	}
@@ -74,7 +74,7 @@ public class MutantControllerTest {
 		DnaSequence dna = new DnaSequence();
 		dna.setDna(DNA_INVALID_MATRIX.split(","));
 
-		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/mutant").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(dna)))
 				.andExpect(status().isBadRequest()).andExpect(content().string("The matrix is not a square matrix !!"));
 	}
@@ -84,7 +84,7 @@ public class MutantControllerTest {
 		DnaSequence dna = new DnaSequence();
 		dna.setDna(DNA_INVALID_CHARACTERS.split(","));
 
-		mockMvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/mutant").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(dna)))
 				.andExpect(status().isBadRequest())
 				.andExpect(content().string("The matrix contains invalid characters !!"));

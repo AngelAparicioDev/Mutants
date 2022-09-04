@@ -13,7 +13,7 @@ import com.meli.mutants.application.services.StatMutantServiceApplication;
 import com.meli.mutants.infraestructure.model.DnaSequence;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api")
 public class MutantController {
 
 	private MutantServiceApplication mutantServiceApplication;

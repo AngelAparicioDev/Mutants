@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "b06d83bd-a994-4374-bad8-954426743c36",
+		"name": "Mutants Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10246573"
+	},
+	"item": [
+		{
+			"name": "analizar mutante",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"dna\":[\"ATGCGA\",\"CAGTAC\",\"TTATGT\",\"AGAAGG\",\"AAAATA\",\"TCACTA\"]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://analysismutant-env.eba-4przmm2n.us-east-1.elasticbeanstalk.com/api/mutant",
+					"protocol": "http",
+					"host": [
+						"analysismutant-env",
+						"eba-4przmm2n",
+						"us-east-1",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"api",
+						"mutant"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retornar estadisticas de mutantes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://analysismutant-env.eba-4przmm2n.us-east-1.elasticbeanstalk.com/api/stats",
+					"protocol": "http",
+					"host": [
+						"analysismutant-env",
+						"eba-4przmm2n",
+						"us-east-1",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"api",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
