@@ -2,6 +2,14 @@
 Proyecto para detectar genes mutantes y obtener estadísticas de estos análisis
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
+CONFIGURACIÓN PARA EJECUTAR EL PROYECTO LOCALMENTE:
+
+* clonar el proyecto en la maquina local
+* ejecutar el comando: gradle clean build este es el encargado de crear el ejecutable .jar dentro de la carpeta build/libs/
+* ejecutar en la raiz del proyecto el comando: java -jar build/libs/mutantes-0.0.1-SNAPSHOT.jar
+* tendremos el proyecto corriendo localmente y podremos acceder a el por medio de la base localhost:5000/api/...
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 DIAGRAMA DE LA ARQUITECTURA DE LOS SERVICIOS
 
 ![WhatsApp Image 2022-09-04 at 12 42 06 PM](https://user-images.githubusercontent.com/51482164/188326524-6119c46f-53c9-4d51-9b59-790e14da24c5.jpeg)
@@ -56,14 +64,6 @@ EJEMPLO DE BODY PARA CONSUMO servicio /api/mutant:
 * 400 que representa un bad request cuando se registra una matrix invalida o se detectan caracteres invalidos en la matrix
 * 200 cuando el adn analizado pertenece a un mutante
 * 403 cuando el adn analizado no pertenece a un mutante
-
------------------------------------------------------------------------------------------------------------------------------------------------------------
-CONFIGURACIÓN PARA EJECUTAR EL PROYECTO LOCALMENTE:
-
--clonar el proyecto en la maquina local
--ejecutar el comando: gradle clean build este es el encargado de crear el ejecutable .jar dentro de la carpeta build/libs/
--ejecutar en la raiz del proyecto el comando: java -jar build/libs/mutantes-0.0.1-SNAPSHOT.jar
--tendremos el proyecto corriendo localmente y podremos acceder a el por medio de la base localhost:5000/api/...
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 CONSUMO DE LOS SERVICIOS 
