@@ -25,11 +25,15 @@ dependencies {
     implementation group: 'io.github.boostchicken', name: 'spring-data-dynamodb', version: '5.2.5'
     // https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa
 	implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.7.2'
-    
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// https://mvnrepository.com/artifact/org.jacoco/org.jacoco.agent
+	testImplementation group: 'org.jacoco', name: 'org.jacoco.agent', version: '0.8.8'
+	
 }
 
 tasks.named('test') {

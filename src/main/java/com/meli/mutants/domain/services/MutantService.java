@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import com.meli.mutants.domain.exceptions.DnaNotMutantException;
+import com.meli.mutants.domain.exceptions.InvalidCharacterInSecuenceException;
 import com.meli.mutants.domain.exceptions.InvalidMatrixException;
 import com.meli.mutants.domain.repositories.AnalisysMutantRepository;
 
@@ -26,11 +27,15 @@ public class MutantService {
 	// si encuentra al menos 2 define que es un mutante y frena el proceso
 	public boolean isMutant(String[] dna) {
 
-		if (!isValidMatrix(dna)) {
+		if (dna == null || !isValidMatrix(dna)) {
 			throw new InvalidMatrixException("The matrix is not a square matrix !!");
 		}
 
 		String secuence = Arrays.stream(dna).collect(Collectors.joining());
+
+		if (containsInvalidCharacters(secuence)) {
+			throw new InvalidCharacterInSecuenceException("The matrix contains invalid characters !!");
+		}
 
 		int numberOfMutantSecuenceInDna = counterOfMutantStringsVertically(dna);
 
@@ -47,7 +52,6 @@ public class MutantService {
 		}
 
 		numberOfMutantSecuenceInDna += counterOfMutantStringsObliquely(dna);
-
 		if (containsMoreThanOneMutantSecuence(numberOfMutantSecuenceInDna)) {
 			userRepository.saveAnalisys(secuence, true);
 			return true;
@@ -64,10 +68,18 @@ public class MutantService {
 				|| secuence.equalsIgnoreCase(DNA_NITROGEN_BASE_G) || secuence.equalsIgnoreCase(DNA_NITROGEN_BASE_C);
 	}
 
+	// Metodo para verificar si la secuencia contiene caracteres no validos
+	private boolean containsInvalidCharacters(String secuence) {
+		int secuenceInitial = secuence.length();
+		int secuenceFinal = secuence.replaceAll("[^ACTG]", "").length();
+
+		return secuenceInitial != secuenceFinal;
+	}
+
 	// Metodo que permite contar el numero de cadenas que se identifican como
 	// mutantes verticalmente si el numero de secuencias que
 	// contienen adn mutante llega a 2 rompe el ciclo
-	public int counterOfMutantStringsVertically(String[] dna) {
+	private int counterOfMutantStringsVertically(String[] dna) {
 		int numberOfMutantSecuence = 0;
 		String secuence = "";
 		for (int i = 0; i < dna.length; i++) {
@@ -75,7 +87,6 @@ public class MutantService {
 				secuence = secuence + dna[j].substring(i, i + 1);
 			}
 			numberOfMutantSecuence += counterOfMutantStringsInString(secuence);
-
 			if (containsMoreThanOneMutantSecuence(numberOfMutantSecuence)) {
 				break;
 			}
@@ -88,7 +99,7 @@ public class MutantService {
 	// Metodo que permite contar el numero de cadenas que se identifican como
 	// mutantes horizontalmente si el numero de secuencias que
 	// contienen adn mutante llega a 2 rompe el ciclo
-	public int counterOfMutantStringsHorizontally(String[] dna) {
+	private int counterOfMutantStringsHorizontally(String[] dna) {
 		int numberOfMutantSecuence = 0;
 
 		for (String secuence : dna) {
@@ -103,7 +114,7 @@ public class MutantService {
 	// Metodo que permite contar el numero de cadenas que se identifican como
 	// mutantes oblicuamente si el numero de secuencias que
 	// contienen adn mutante llega a 2 rompe el ciclo
-	public int counterOfMutantStringsObliquely(String[] dna) {
+	private int counterOfMutantStringsObliquely(String[] dna) {
 		int numberOfMutantSecuence = 0;
 		int n = dna.length;
 		String secuence = "";
@@ -112,6 +123,7 @@ public class MutantService {
 			for (int x = -min(0, i), y = max(0, i); x < n && y < n; x++, y++) {
 				secuence = secuence + dna[y].substring(x, x + 1);
 			}
+
 			numberOfMutantSecuence += counterOfMutantStringsInString(secuence);
 
 			if (containsMoreThanOneMutantSecuence(numberOfMutantSecuence)) {
@@ -126,7 +138,7 @@ public class MutantService {
 	// Metodo que me permite contar el numero de cadenas que se identifican como
 	// mutantes en una cadena de texto sin traslapes si el numero de secuencias que
 	// contienen adn mutante llega a 2 rompe el ciclo
-	public int counterOfMutantStringsInString(String secuence) {
+	private int counterOfMutantStringsInString(String secuence) {
 		int characterCounter = 0;
 		int numberOfMutantSecuence = 0;
 
@@ -145,14 +157,14 @@ public class MutantService {
 
 	// Metodo para verificar que se trata de una matriz cuadrada
 	private boolean isValidMatrix(String[] array) {
-		if (array != null) {
-			int columnsSize = array.length;
-			for (String row : array) {
-				if (columnsSize != row.length()) {
-					return false;
-				}
+
+		int columnsSize = array.length;
+		for (String row : array) {
+			if (columnsSize != row.length()) {
+				return false;
 			}
 		}
+
 		return true;
 	}
 
